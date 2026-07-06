@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact ZHS Academy of Finance for admissions and program guidance.">
+  <title>Contact — ZHS Academy of Finance</title>
+  <link rel="icon" type="image/webp" href="logo.webp?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grain"></div>
+  <nav class="nav" id="nav"><div class="nav-inner">
+    <a href="index.html" class="brand"><img src="logo.webp?v=2" alt="ZHS Academy of Finance" class="brand-logo"></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="courses.html">Courses</a><a href="timetable.html">Timetable</a><a href="about.html">About</a></div>
+    <a href="contact.html" class="nav-cta" aria-current="page">Contact us</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div></nav>
+  <main class="page-main">
+    <header class="page-header"><div class="page-header-inner" data-reveal>
+      <p class="eyebrow">Contact &amp; admissions</p><h1>Let’s discuss your finance journey.</h1>
+      <p class="page-lead">Connect with the ZHS Academy of Finance team for course guidance, admissions information, schedules, and learning options.</p>
+    </div></header>
+    <section class="contact-form-section">
+      <div class="contact-form-layout">
+        <div class="contact-form-intro" data-reveal>
+          <p class="eyebrow">How we can help</p>
+          <h2>Start with the right conversation.</h2>
+          <p>Our academic team can help you compare programs and identify a suitable path based on your studies, experience, and professional goals.</p>
+          <a class="contact-email" href="mailto:support@zhsacadmey.com">support@zhsacadmey.com</a>
+        </div>
+        <form class="contact-form" id="contactForm" action="https://formsubmit.co/ajax/support@zhsacadmey.com" method="post" data-reveal>
+          <input type="hidden" name="_subject" value="New ZHS Academy course inquiry">
+          <input type="hidden" name="_template" value="table">
+          <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label for="contactName">Full name</label>
+              <input type="text" id="contactName" name="name" autocomplete="name" required>
+            </div>
+            <div class="contact-field">
+              <label for="contactPhone">Phone / WhatsApp</label>
+              <input type="tel" id="contactPhone" name="phone" autocomplete="tel" required>
+            </div>
+          </div>
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label for="contactEmail">Email address</label>
+              <input type="email" id="contactEmail" name="email" autocomplete="email" required>
+            </div>
+            <div class="contact-field">
+              <label for="contactProgram">Program of interest</label>
+              <select id="contactProgram" name="program" required>
+                <option value="" selected disabled>Select a program</option>
+                <option value="CMA (USA)">CMA (USA)</option>
+                <option value="CFA">CFA</option>
+                <option value="CIA (USA)">CIA (USA)</option>
+                <option value="University Finance">University Finance Program</option>
+              </select>
+            </div>
+          </div>
+          <div class="contact-field">
+            <label for="contactMessage">Your message</label>
+            <textarea id="contactMessage" name="message" rows="4" placeholder="How can our academic team help?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send inquiry</button>
+          <p class="contact-form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="footer-inner"><div class="footer-brand"><img src="logo.webp?v=2" alt="" class="brand-logo brand-logo-footer"><div><strong>ZHS Academy of Finance</strong><span>CMA · CFA · CIA · University Finance</span></div></div><div class="footer-links"><a href="courses.html">Courses</a><a href="timetable.html">Timetable</a><a href="about.html">About</a><a href="contact.html">Contact</a></div><p class="footer-copy">© 2026 · Learn. Lead. Succeed.</p></div></footer>
+  <script src="script.js"></script>
+</body>
+</html>

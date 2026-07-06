@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ZHS Academy of Finance offers professional preparation for CMA, CFA, CIA, and university finance programs.">
+  <title>ZHS Academy of Finance — Learn. Lead. Succeed.</title>
+  <link rel="icon" type="image/webp" href="logo.webp?v=2">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="home-welcome" id="homeWelcome" role="status" aria-live="polite">
+    <div class="home-welcome-card">
+      <img src="logo.webp?v=2" alt="" class="home-welcome-logo">
+      <p class="home-welcome-kicker">Welcome to ZHS Academy of Finance</p>
+      <p class="home-welcome-message">You are at the right place for professional education.</p>
+      <span class="home-welcome-accent" aria-hidden="true"></span>
+    </div>
+  </div>
+  <div class="grain"></div>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand"><img src="logo.webp?v=2" alt="ZHS Academy of Finance" class="brand-logo"></a>
+      <div class="nav-links">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="timetable.html">Timetable</a>
+        <a href="about.html">About</a>
+      </div>
+      <a href="contact.html" class="nav-cta">Contact us</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main class="page-main">
+    <section class="head-section home-leadership">
+      <div class="head-inner">
+        <div class="head-portrait" data-reveal>
+          <div class="portrait-frame">
+            <img src="head.webp" alt="Mr. Zahid Hameed Shah">
+            <div class="frame-tag">25 Years’ Experience</div>
+          </div>
+          <svg class="portrait-underline" viewBox="0 0 260 20"><path d="M4 12 C 60 2, 140 18, 256 8"/></svg>
+        </div>
+        <div class="head-content" data-reveal>
+          <p class="eyebrow">Leadership at ZHS Academy of Finance</p>
+          <h1 class="head-name">Mr. Zahid Hameed Shah</h1>
+          <p class="head-title">Founder &amp; Head of Academics</p>
+          <p class="head-quote">“True financial education turns knowledge into judgment, and judgment into confident decisions.”</p>
+          <p class="head-bio">With 25 years of teaching experience, Mr. Zahid Hameed Shah leads the academy’s professional finance education with a practical, concept-driven approach.</p>
+          <a href="courses.html" class="btn btn-primary leadership-link">Explore our courses</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Explore the academy</p>
+        <h2>You are at the right place for professional education.</h2>
+        <p class="section-sub">Choose a section to learn about our programs, schedule, admissions, and approach.</p>
+      </div>
+      <div class="home-directory">
+        <a href="courses.html" class="directory-card" data-reveal>
+          <div><p class="eyebrow">Professional programs</p><h2>Courses</h2><p>Explore CMA (USA), CFA, CIA (USA), and university finance support for the Middle East.</p></div>
+          <span class="directory-link">View all courses →</span>
+        </a>
+        <a href="contact.html" class="directory-card" data-reveal>
+          <div><p class="eyebrow">Admissions guidance</p><h2>Contact the Academy</h2><p>Discuss programs, schedules, eligibility, and the right learning path for your goals.</p></div>
+          <span class="directory-link">Contact us →</span>
+        </a>
+        <a href="timetable.html" class="directory-card" data-reveal>
+          <div><p class="eyebrow">Weekly schedule</p><h2>Timetable</h2><p>Review the current weekly board for professional and university-level classes.</p></div>
+          <span class="directory-link">See the timetable →</span>
+        </a>
+        <a href="about.html" class="directory-card" data-reveal>
+          <div><p class="eyebrow">Our approach</p><h2>About the Academy</h2><p>Discover how experienced teaching, exam preparation, and career relevance work together.</p></div>
+          <span class="directory-link">Learn about ZHS →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="contact-form-section" id="contact">
+      <div class="contact-form-layout">
+        <div class="contact-form-intro" data-reveal>
+          <p class="eyebrow">Contact the academy</p>
+          <h2>Let’s discuss your finance journey.</h2>
+          <p>Ask about courses, schedules, eligibility, or the right study path for your goals.</p>
+          <a class="contact-email" href="mailto:support@zhsacadmey.com">support@zhsacadmey.com</a>
+        </div>
+        <form class="contact-form" id="contactForm" action="https://formsubmit.co/ajax/support@zhsacadmey.com" method="post" data-reveal>
+          <input type="hidden" name="_subject" value="New ZHS Academy course inquiry">
+          <input type="hidden" name="_template" value="table">
+          <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label for="contactName">Full name</label>
+              <input type="text" id="contactName" name="name" autocomplete="name" required>
+            </div>
+            <div class="contact-field">
+              <label for="contactPhone">Phone / WhatsApp</label>
+              <input type="tel" id="contactPhone" name="phone" autocomplete="tel" required>
+            </div>
+          </div>
+          <div class="contact-form-row">
+            <div class="contact-field">
+              <label for="contactEmail">Email address</label>
+              <input type="email" id="contactEmail" name="email" autocomplete="email" required>
+            </div>
+            <div class="contact-field">
+              <label for="contactProgram">Program of interest</label>
+              <select id="contactProgram" name="program" required>
+                <option value="" selected disabled>Select a program</option>
+                <option value="CMA (USA)">CMA (USA)</option>
+                <option value="CFA">CFA</option>
+                <option value="CIA (USA)">CIA (USA)</option>
+                <option value="University Finance">University Finance Program</option>
+              </select>
+            </div>
+          </div>
+          <div class="contact-field">
+            <label for="contactMessage">Your message</label>
+            <textarea id="contactMessage" name="message" rows="4" placeholder="How can our academic team help?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send inquiry</button>
+          <p class="contact-form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="logo.webp?v=2" alt="" class="brand-logo brand-logo-footer">
+        <div><strong>ZHS Academy of Finance</strong><span>CMA · CFA · CIA · University Finance</span></div>
+      </div>
+      <div class="footer-links">
+        <a href="courses.html">Courses</a><a href="timetable.html">Timetable</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 · Learn. Lead. Succeed.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
