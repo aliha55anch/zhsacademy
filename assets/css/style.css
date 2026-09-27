@@ -1,0 +1,997 @@
+/* ============================================================
+   1. DESIGN TOKENS - single source of truth.
+   Adding `.dark` to <html> re-themes the entire product because
+   every component below reads exclusively from these variables.
+   ============================================================ */
+:root {
+  color-scheme: light;
+  --c-surface: #ffffff;
+  --c-surface-2: #f7f9fc;
+  --c-surface-3: #eef2f8;
+  --c-glass: rgba(255, 255, 255, 0.88);
+  --c-glass-line: rgba(15, 23, 42, 0.1);
+  --c-ink: #0b1220;
+  --c-ink-2: #35435a;
+  --c-muted: #5a6b83;
+  --c-line: #e1e8f0;
+  --c-accent: #047857;
+  --c-accent-fg: #ffffff;
+  --c-accent-soft: #ecfdf5;
+  --c-accent-line: #6ee7b7;
+  --c-navy: #0b192c;
+  --c-gold: #96590a;
+  --c-gold-soft: #fef9ec;
+  --c-gold-line: #fcd34d;
+  --c-info: #1d4ed8;
+  --c-info-soft: #eff5ff;
+  --c-info-line: #bfdbfe;
+  --c-violet: #6d28d9;
+  --c-violet-soft: #f6f4ff;
+  --c-violet-line: #ddd6fe;
+  --c-warn: #b91c1c;
+  --c-warn-soft: #fef3f3;
+  --c-warn-line: #fecaca;
+  --c-ring: #0f766e;
+  --hero-bg: #070d18;
+  --shadow-1: 0 1px 2px rgba(2, 6, 23, 0.05), 0 1px 3px rgba(2, 6, 23, 0.08);
+  --shadow-2: 0 18px 44px -20px rgba(2, 6, 23, 0.32);
+  --r-md: 14px;
+  --r-lg: 20px;
+  --dur: 0.2s;
+  --reveal-dur: 0.78s;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.dark {
+  color-scheme: dark;
+  --c-surface: #0a1120;
+  --c-surface-2: #0f1729;
+  --c-surface-3: #16203a;
+  --c-glass: rgba(10, 17, 32, 0.86);
+  --c-glass-line: rgba(148, 163, 184, 0.18);
+  --c-ink: #e9eff8;
+  --c-ink-2: #c2cede;
+  --c-muted: #94a6c0;
+  --c-line: #22304a;
+  --c-accent: #34d399;
+  --c-accent-fg: #04241a;
+  --c-accent-soft: #0c2a22;
+  --c-accent-line: #1c5a46;
+  --c-navy: #05090f;
+  --c-gold: #fbbf24;
+  --c-gold-soft: #2a1e07;
+  --c-gold-line: #5a4413;
+  --c-info: #7db9fb;
+  --c-info-soft: #0b1f33;
+  --c-info-line: #1d3f63;
+  --c-violet: #c3b5fd;
+  --c-violet-soft: #1c1937;
+  --c-violet-line: #3b3168;
+  --c-warn: #fca5a5;
+  --c-warn-soft: #2c1214;
+  --c-warn-line: #5c2226;
+  --c-ring: #5eead4;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 20px 50px -24px rgba(0, 0, 0, 0.8);
+}
+
+/* ============================================================
+   2. BASE + TYPOGRAPHY (fluid scale, no breakpoint jumps)
+   ============================================================ */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+body {
+  background: var(--c-surface-2);
+  color: var(--c-ink);
+  font-family: "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+}
+[id] {
+  scroll-margin-top: 6.5rem;
+}
+/* The `hidden` attribute must win over Tailwind display utilities. Tailwind
+   emits `[hidden]{display:none}` in the base layer, but `.flex`/`.grid`/etc in
+   the utilities layer - identical specificity, so source order decided and the
+   utility won. Any element toggled via `el.hidden` that also carried a display
+   utility stayed permanently visible: the toast's dismiss button set
+   `hidden = true` yet the panel never disappeared. Declared here, ahead of the
+   utilities, so the attribute is authoritative. */
+[hidden] {
+  display: none !important;
+}
+.t-display {
+  font-family: "Outfit", "Inter", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+.hd-hero {
+  font-size: clamp(2.05rem, 1.1rem + 4.2vw, 4.15rem);
+}
+.hd-1 {
+  font-size: clamp(1.8rem, 1.28rem + 2.2vw, 2.75rem);
+  line-height: 1.13;
+}
+.hd-2 {
+  font-size: clamp(1.28rem, 1.06rem + 0.95vw, 1.7rem);
+  line-height: 1.2;
+}
+.hd-3 {
+  font-size: 1.04rem;
+  line-height: 1.3;
+}
+.lead {
+  font-size: clamp(0.98rem, 0.95rem + 0.2vw, 1.12rem);
+  line-height: 1.65;
+  color: var(--c-muted);
+}
+.kicker {
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+}
+.num {
+  font-family: "Outfit", sans-serif;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.mono {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.muted {
+  color: var(--c-muted);
+}
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================================================
+   3. ACCESSIBILITY PRIMITIVES
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--c-ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-180%);
+  transition: transform var(--dur) ease;
+  background: var(--c-accent);
+  color: var(--c-accent-fg);
+  padding: 0.7rem 1.1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   4. COMPONENT LAYER
+   ============================================================ */
+.card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-1);
+  transition:
+    transform var(--dur) ease,
+    box-shadow var(--dur) ease,
+    border-color var(--dur) ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-2);
+  border-color: var(--c-accent-line);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  padding: 0.7rem 1.05rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background var(--dur) ease,
+    color var(--dur) ease,
+    border-color var(--dur) ease,
+    transform var(--dur) ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-accent {
+  background: var(--c-accent);
+  color: var(--c-accent-fg);
+}
+.btn-accent:hover {
+  background: color-mix(in srgb, var(--c-accent) 85%, var(--c-ink));
+}
+.btn-navy {
+  background: var(--c-navy);
+  color: #f8fafc;
+}
+.btn-navy:hover {
+  background: #16273f;
+}
+.btn-outline {
+  background: var(--c-surface);
+  color: var(--c-ink);
+  border-color: var(--c-line);
+}
+.btn-outline:hover {
+  border-color: var(--c-accent);
+  color: var(--c-accent);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--c-ink-2);
+}
+.btn-ghost:hover {
+  background: var(--c-surface-3);
+}
+.btn-sm {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.74rem;
+  border-radius: 10px;
+}
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-block {
+  width: 100%;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface-2);
+  color: var(--c-muted);
+  white-space: nowrap;
+}
+.chip-btn {
+  cursor: pointer;
+  transition:
+    background var(--dur) ease,
+    color var(--dur) ease,
+    border-color var(--dur) ease;
+}
+.chip-btn:hover {
+  border-color: var(--c-accent-line);
+  color: var(--c-accent);
+}
+.chip-btn[aria-pressed="true"] {
+  background: var(--c-accent);
+  border-color: var(--c-accent);
+  color: var(--c-accent-fg);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.28rem 0.55rem;
+  border-radius: 7px;
+  border: 1px solid transparent;
+}
+.b-accent {
+  background: var(--c-accent-soft);
+  color: var(--c-accent);
+  border-color: var(--c-accent-line);
+}
+.b-info {
+  background: var(--c-info-soft);
+  color: var(--c-info);
+  border-color: var(--c-info-line);
+}
+.b-gold {
+  background: var(--c-gold-soft);
+  color: var(--c-gold);
+  border-color: var(--c-gold-line);
+}
+.b-violet {
+  background: var(--c-violet-soft);
+  color: var(--c-violet);
+  border-color: var(--c-violet-line);
+}
+.b-warn {
+  background: var(--c-warn-soft);
+  color: var(--c-warn);
+  border-color: var(--c-warn-line);
+}
+.b-quiet {
+  background: var(--c-surface-3);
+  color: var(--c-muted);
+  border-color: var(--c-line);
+}
+
+.field {
+  width: 100%;
+  background: var(--c-surface);
+  color: var(--c-ink);
+  border: 1px solid var(--c-line);
+  border-radius: 12px;
+  padding: 0.68rem 0.85rem;
+  font-size: 0.84rem;
+  font-family: inherit;
+  transition:
+    border-color var(--dur) ease,
+    box-shadow var(--dur) ease;
+}
+.field::placeholder {
+  color: var(--c-muted);
+  opacity: 0.8;
+}
+.field:hover {
+  border-color: var(--c-muted);
+}
+.field:focus {
+  outline: none;
+  border-color: var(--c-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-accent) 22%, transparent);
+}
+.field[aria-invalid="true"] {
+  border-color: var(--c-warn);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-warn) 18%, transparent);
+}
+.label {
+  display: block;
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--c-ink-2);
+  margin-bottom: 0.32rem;
+}
+.hint {
+  font-size: 0.7rem;
+  color: var(--c-muted);
+  margin-top: 0.32rem;
+  line-height: 1.5;
+}
+.err {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--c-warn);
+  margin-top: 0.32rem;
+  display: none;
+}
+.err[data-shown] {
+  display: block;
+}
+
+.icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--c-accent-soft);
+  color: var(--c-accent);
+  border: 1px solid var(--c-accent-line);
+}
+
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+.tab {
+  flex: 0 0 auto;
+  padding: 0.55rem 0.9rem;
+  border-radius: 11px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--c-muted);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background var(--dur) ease,
+    color var(--dur) ease;
+}
+.tab:hover {
+  color: var(--c-ink);
+  background: var(--c-surface-3);
+}
+.tab[aria-selected="true"] {
+  background: var(--c-accent);
+  color: var(--c-accent-fg);
+}
+
+.opt {
+  display: block;
+  cursor: pointer;
+  position: relative;
+}
+.opt > input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.opt-body {
+  display: block;
+  height: 100%;
+  padding: 0.8rem 0.85rem;
+  border-radius: var(--r-md);
+  border: 1px solid var(--c-line);
+  background: var(--c-surface);
+  transition:
+    border-color var(--dur) ease,
+    background var(--dur) ease,
+    box-shadow var(--dur) ease;
+}
+.opt:hover .opt-body {
+  border-color: var(--c-muted);
+}
+.opt > input:checked + .opt-body {
+  border-color: var(--c-accent);
+  background: var(--c-accent-soft);
+  box-shadow: inset 0 0 0 1px var(--c-accent);
+}
+.opt > input:focus-visible + .opt-body {
+  outline: 2px solid var(--c-ring);
+  outline-offset: 2px;
+}
+
+.meter {
+  height: 9px;
+  border-radius: 999px;
+  background: var(--c-surface-3);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+}
+.meter > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--c-accent),
+    color-mix(in srgb, var(--c-accent) 55%, var(--c-gold))
+  );
+  transition: width 0.45s ease;
+}
+
+.hero-bg {
+  background-color: var(--hero-bg);
+  background-image:
+    radial-gradient(rgba(52, 211, 153, 0.16) 1px, transparent 1px),
+    radial-gradient(rgba(125, 185, 251, 0.12) 1px, transparent 1px);
+  background-size:
+    42px 42px,
+    42px 42px;
+  background-position:
+    0 0,
+    21px 21px;
+}
+.hero-lines {
+  background-image: linear-gradient(
+    to right,
+    rgba(148, 163, 184, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 96px 100%;
+}
+.gold-text {
+  background: linear-gradient(100deg, #fbbf24, #fcd34d 45%, #6ee7b7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pulse-dot {
+  animation: countPulse 1.8s ease-in-out infinite;
+}
+@keyframes countPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+.fade-in {
+  animation: fadeIn 0.28s ease both;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+::selection {
+  background: var(--c-accent);
+  color: var(--c-accent-fg);
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--c-surface-2);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--c-line);
+  border-radius: 999px;
+  border: 2px solid var(--c-surface-2);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--c-muted);
+}
+
+/* ============================================================
+   5. ANNOUNCEMENT TICKER
+   A single horizontal strip that scrolls continuously. The markup holds one
+   `.ticker-set`; `initTicker()` clones it, so the track is exactly two sets
+   wide and translating -50% lands precisely back on the seam - no jump.
+   ============================================================ */
+.ticker {
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.5rem 0;
+  background: linear-gradient(90deg, #070d18, #153055 50%, #070d18);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: tickerRun var(--ticker-duration, 46s) linear infinite;
+  will-change: transform;
+}
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+.ticker-set {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-right: 1.25rem;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.ticker-dot {
+  flex: 0 0 auto;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.55);
+}
+@keyframes tickerRun {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Content narrower than the viewport: centring beats looping a short strip. */
+.ticker--static .ticker-track {
+  animation: none;
+  width: 100%;
+  justify-content: center;
+}
+.ticker--static .ticker-set[aria-hidden="true"] {
+  display: none;
+}
+
+/* The global reduced-motion block nukes duration, which would park the track
+   on the -50% keyframe. Override it and fall back to a scrollable strip. */
+@media (prefers-reduced-motion: reduce) {
+  .ticker {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .ticker-track {
+    animation: none !important;
+  }
+  .ticker-set[aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* ============================================================
+   6. SCROLL ANIMATIONS
+   One-shot reveal keyframes, the reading-progress bar and the
+   hero parallax layers. Everything here is progressive enhancement
+   and deliberately fail-safe.
+
+    Every keyframe starts at `opacity: 0`, so three independent guards
+    keep content from ever being stranded invisible:
+      1. the whole block is gated on `prefers-reduced-motion:
+         no-preference`, and
+      2. nothing is hidden by a base rule - the hidden state exists
+         only inside a running animation. No JavaScript, no
+         IntersectionObserver, or a failed query means the page simply
+         renders statically, and
+      3. the paused state is only reachable once core/scroll-anim.js
+         has tagged the element, so a script that dies halfway cannot
+         leave a half-tagged page stuck invisible.
+
+    `backwards` fill-mode is the load-bearing keyword. It paints the
+    "from" state only while the animation is delayed or running; the
+    instant it finishes, the element reverts to its own computed
+    styles. A `both`/`forwards` fill would pin a leftover transform
+    and silently defeat `.card-hover:hover`, and would need
+    transitionend bookkeeping to release. It is also what lets a
+    *paused* animation still show its hidden state, which is how the
+    reveal is held back until the box is actually scrolled to.
+
+    `var(--d)` is the per-element stagger delay that
+    core/scroll-anim.js assigns.
+    ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim] {
+    animation-duration: var(--reveal-dur);
+    animation-timing-function: var(--ease);
+    animation-fill-mode: backwards;
+    animation-delay: var(--d, 0ms);
+
+    /* Hold every entrance until the observer says this box is on
+           screen. Without this the animation starts the instant
+           `data-anim` is applied at load: it plays out below the fold
+           and is finished long before the visitor scrolls to it, so the
+           page looks static. Paused animations still apply their fill,
+           so `backwards` above keeps the box in its hidden state while
+           it waits, and the stagger delay does not start counting until
+           the box is released. */
+    animation-play-state: paused;
+  }
+
+  /* The observer's release. Two-class specificity, so this wins
+       without depending on source order. */
+  [data-anim].is-in {
+    animation-play-state: running;
+  }
+
+  /* The side entrances are the workhorse of the page, so they get more
+       travel and more time than the vertical variants: a short horizontal
+       slide reads as a twitch, a longer one reads as a glide. The slight
+       scale gives each box depth on the way in. */
+  [data-anim="left"],
+  [data-anim="right"] {
+    animation-duration: calc(var(--reveal-dur) * 1.2);
+  }
+
+  /* Promote boxes while they are queued behind a stagger delay, so the
+       first frame of the animation is not also the frame that builds a
+       compositor layer. `:not(.is-in)` keeps this to the waiting state, so
+       the page never parks a hundred permanent layers in memory. */
+  .js-reveal [data-anim]:not(.is-in) {
+    will-change: transform, opacity;
+  }
+
+  [data-anim="rise"] {
+    animation-name: revealRise;
+  }
+  [data-anim="drop"] {
+    animation-name: revealDrop;
+  }
+  [data-anim="left"] {
+    animation-name: revealLeft;
+  }
+  [data-anim="right"] {
+    animation-name: revealRight;
+  }
+  [data-anim="zoom"] {
+    animation-name: revealZoom;
+  }
+  [data-anim="pop"] {
+    animation-name: revealPop;
+    animation-timing-function: var(--ease-pop);
+  }
+  [data-anim="blur"] {
+    animation-name: revealBlur;
+  }
+  [data-anim="clip"] {
+    animation-name: revealClip;
+  }
+  [data-anim="draw"] {
+    animation-name: revealDraw;
+    transform-origin: left center;
+  }
+  [data-anim="stretch"] {
+    animation-name: revealStretch;
+  }
+  [data-anim="sway"] {
+    animation-name: revealSway;
+  }
+
+  /* Hero glow layers fade in slowly, and deliberately never touch
+       `transform`: core/scroll-anim.js writes an inline translate on these
+       every frame for the parallax, and a running CSS animation outranks
+       inline styles, so it would freeze the drift mid-intro. */
+  .hero-glow {
+    animation: glowIn 1.7s var(--ease) backwards;
+  }
+
+  @keyframes revealRise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 30px, 0);
+    }
+  }
+  @keyframes revealDrop {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -26px, 0);
+    }
+  }
+  @keyframes revealLeft {
+    from {
+      opacity: 0;
+      transform: translate3d(-64px, 0, 0) scale(0.965);
+    }
+  }
+  @keyframes revealRight {
+    from {
+      opacity: 0;
+      transform: translate3d(64px, 0, 0) scale(0.965);
+    }
+  }
+  @keyframes revealZoom {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+  }
+  @keyframes revealBlur {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+      filter: blur(7px);
+    }
+  }
+  @keyframes revealClip {
+    from {
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+    }
+  }
+  @keyframes revealDraw {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+  }
+  @keyframes revealStretch {
+    from {
+      opacity: 0;
+      transform: scaleX(0.9);
+    }
+  }
+  @keyframes revealSway {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 30px, 0) rotate(-1.4deg);
+    }
+  }
+  @keyframes revealPop {
+    0% {
+      opacity: 0;
+      transform: scale(0.72);
+    }
+    62% {
+      opacity: 1;
+      transform: scale(1.07);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes glowIn {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+/* Reading-progress rail, pinned to the header's top edge. The header is
+   `position: sticky`, which already establishes the containing block. */
+.scroll-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.scroll-progress > span {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(
+    90deg,
+    var(--c-accent),
+    var(--c-gold-line) 55%,
+    #6ee7b7
+  );
+}
+
+/* ============================================================
+   7. PRINT
+   ============================================================ */
+#certPrintSheet {
+  display: none;
+}
+@media print {
+  @page {
+    margin: 15mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+  }
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+  .card {
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    background: #fff !important;
+  }
+  /* Never print a half-played reveal: drop the animation, which also drops
+       its `backwards` fill, and force the visible end state regardless. */
+  [data-anim] {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    clip-path: none !important;
+    transform: none !important;
+  }
+  .scroll-progress {
+    display: none !important;
+  }
+  .clamp-2,
+  .clamp-3 {
+    display: block !important;
+    -webkit-line-clamp: none;
+    overflow: visible;
+  }
+  a[href^="http"]::after,
+  a[href^="mailto"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #475569;
+  }
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  section {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .hero-bg,
+  .footer-bg {
+    background: #fff !important;
+  }
+  .hero-bg *,
+  .footer-bg * {
+    color: #000 !important;
+    background-image: none !important;
+  }
+  .gold-text {
+    -webkit-text-fill-color: #000;
+    color: #000;
+    background: none !important;
+  }
+  .print-head {
+    display: block !important;
+  }
+  html.print-cert body > *:not(#certPrintSheet) {
+    display: none !important;
+  }
+  html.print-cert #certPrintSheet {
+    display: block !important;
+  }
+}

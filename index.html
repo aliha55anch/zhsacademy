@@ -1,147 +1,716 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ZHS Academy of Finance offers professional preparation for CMA, CFA, CIA, and university finance programs.">
-  <title>ZHS Academy of Finance — Learn. Lead. Succeed.</title>
-  <link rel="icon" type="image/webp" href="logo.webp?v=2">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b192c" id="themeColorMeta">
+
+<!-- Resolve the theme BEFORE first paint. `core/theme.js` loads at the end of
+     the body, so until it runs the document carries no `.dark` class and the
+     light tokens apply: on every reload the navbar and the page background
+     paint white and then snap to dark. This has to be inline and synchronous -
+     an external file, or anything after the Tailwind CDN, is too late. Read
+     only: it must never write, or it would clobber the stored preference.
+     Kept in step with core/theme.js (same key, same namespace, same two
+     colours); that file still runs later to wire up the toggle button. -->
+<script>
+(function () {
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem('zhs.v1.theme')); }
+    catch (e) { /* storage blocked - fall through to the OS preference */ }
+    var dark = saved
+        ? saved === 'dark'
+        : !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('dark', dark);
+    var meta = document.getElementById('themeColorMeta');
+    if (meta) meta.setAttribute('content', dark ? '#0a1120' : '#ffffff');
+})();
+</script>
+<title>ZHS Academy | Tutor-Led Finance, Tax &amp; Professional Certifications</title>
+<meta name="description" content="Tutor-led finance, tax, audit and analytics programmes &mdash; ACCA, CFA, US CPA, CIMA, CIA, ADIT-aligned tax, and applied FinTech. Every programme is taught by an expert practitioner tutor with 1:1 clinics. Live online worldwide, every fee quoted in USD.">
+
+<!-- Tailwind Play CDN must load first; its config runs on the very next line. -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/tailwind.config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Design tokens, component layer and print rules. Keep after the CDN so it still wins the cascade. -->
+<link rel="stylesheet" href="assets/css/style.css">
+
+<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-  <div class="home-welcome" id="homeWelcome" role="status" aria-live="polite">
-    <div class="home-welcome-card">
-      <img src="logo.webp?v=2" alt="" class="home-welcome-logo">
-      <p class="home-welcome-kicker">Welcome to ZHS Academy of Finance</p>
-      <p class="home-welcome-message">You are at the right place for professional education.</p>
-      <span class="home-welcome-accent" aria-hidden="true"></span>
-    </div>
-  </div>
-  <div class="grain"></div>
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="brand"><img src="logo.webp?v=2" alt="ZHS Academy of Finance" class="brand-logo"></a>
-      <div class="nav-links">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="courses.html">Courses</a>
-        <a href="timetable.html">Timetable</a>
-        <a href="about.html">About</a>
-      </div>
-      <a href="contact.html" class="nav-cta">Contact us</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
 
-  <main class="page-main">
-    <section class="head-section home-leadership">
-      <div class="head-inner">
-        <div class="head-portrait" data-reveal>
-          <div class="portrait-frame">
-            <img src="head.webp" alt="Mr. Zahid Hameed Shah">
-            <div class="frame-tag">25 Years’ Experience</div>
-          </div>
-          <svg class="portrait-underline" viewBox="0 0 260 20"><path d="M4 12 C 60 2, 140 18, 256 8"/></svg>
+<a href="#main" class="skip-link no-print">Skip to main content</a>
+
+<!-- ============ ANNOUNCEMENT BAR ============ -->
+<div class="ticker no-print text-white text-xs sm:text-sm" data-ticker>
+    <div class="ticker-track" data-ticker-track>
+        <div class="ticker-set">
+            <span class="shrink-0 rounded bg-amber-400 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-900">Global intakes open</span>
+            <span class="ticker-item text-slate-300">ACCA, CFA&reg; Level&nbsp;I, US&nbsp;CPA, CIMA and CIA cohorts enrolling now.</span>
+            <span class="ticker-dot" aria-hidden="true"></span>
+            <span class="ticker-item text-slate-300"><i data-lucide="phone" class="w-3.5 h-3.5 text-amber-400" aria-hidden="true"></i> (+92) 333 8998745</span>
+            <span class="ticker-dot" aria-hidden="true"></span>
+            <span class="ticker-item text-slate-300"><i data-lucide="user-round-check" class="w-3.5 h-3.5 text-emerald-400" aria-hidden="true"></i> Tutor-led from day one &middot; 1:1 clinics included</span>
+            <span class="ticker-dot" aria-hidden="true"></span>
+            <span class="ticker-item text-slate-300"><i data-lucide="globe" class="w-3.5 h-3.5 text-emerald-400" aria-hidden="true"></i> Live online worldwide &middot; 24/7 lesson vault</span>
         </div>
-        <div class="head-content" data-reveal>
-          <p class="eyebrow">Leadership at ZHS Academy of Finance</p>
-          <h1 class="head-name">Mr. Zahid Hameed Shah</h1>
-          <p class="head-title">Founder &amp; Head of Academics</p>
-          <p class="head-quote">“True financial education turns knowledge into judgment, and judgment into confident decisions.”</p>
-          <p class="head-bio">With 25 years of teaching experience, Mr. Zahid Hameed Shah leads the academy’s professional finance education with a practical, concept-driven approach.</p>
-          <a href="courses.html" class="btn btn-primary leadership-link">Explore our courses</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="page-section">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Explore the academy</p>
-        <h2>You are at the right place for professional education.</h2>
-        <p class="section-sub">Choose a section to learn about our programs, schedule, admissions, and approach.</p>
-      </div>
-      <div class="home-directory">
-        <a href="courses.html" class="directory-card" data-reveal>
-          <div><p class="eyebrow">Professional programs</p><h2>Courses</h2><p>Explore CMA (USA), CFA, CIA (USA), and university finance support for the Middle East.</p></div>
-          <span class="directory-link">View all courses →</span>
-        </a>
-        <a href="contact.html" class="directory-card" data-reveal>
-          <div><p class="eyebrow">Admissions guidance</p><h2>Contact the Academy</h2><p>Discuss programs, schedules, eligibility, and the right learning path for your goals.</p></div>
-          <span class="directory-link">Contact us →</span>
-        </a>
-        <a href="timetable.html" class="directory-card" data-reveal>
-          <div><p class="eyebrow">Weekly schedule</p><h2>Timetable</h2><p>Review the current weekly board for professional and university-level classes.</p></div>
-          <span class="directory-link">See the timetable →</span>
-        </a>
-        <a href="about.html" class="directory-card" data-reveal>
-          <div><p class="eyebrow">Our approach</p><h2>About the Academy</h2><p>Discover how experienced teaching, exam preparation, and career relevance work together.</p></div>
-          <span class="directory-link">Learn about ZHS →</span>
-        </a>
-      </div>
-    </section>
-
-    <section class="contact-form-section" id="contact">
-      <div class="contact-form-layout">
-        <div class="contact-form-intro" data-reveal>
-          <p class="eyebrow">Contact the academy</p>
-          <h2>Let’s discuss your finance journey.</h2>
-          <p>Ask about courses, schedules, eligibility, or the right study path for your goals.</p>
-          <a class="contact-email" href="mailto:support@zhsacadmey.com">support@zhsacadmey.com</a>
-        </div>
-        <form class="contact-form" id="contactForm" action="https://formsubmit.co/ajax/support@zhsacadmey.com" method="post" data-reveal>
-          <input type="hidden" name="_subject" value="New ZHS Academy course inquiry">
-          <input type="hidden" name="_template" value="table">
-          <input class="form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off">
-          <div class="contact-form-row">
-            <div class="contact-field">
-              <label for="contactName">Full name</label>
-              <input type="text" id="contactName" name="name" autocomplete="name" required>
-            </div>
-            <div class="contact-field">
-              <label for="contactPhone">Phone / WhatsApp</label>
-              <input type="tel" id="contactPhone" name="phone" autocomplete="tel" required>
-            </div>
-          </div>
-          <div class="contact-form-row">
-            <div class="contact-field">
-              <label for="contactEmail">Email address</label>
-              <input type="email" id="contactEmail" name="email" autocomplete="email" required>
-            </div>
-            <div class="contact-field">
-              <label for="contactProgram">Program of interest</label>
-              <select id="contactProgram" name="program" required>
-                <option value="" selected disabled>Select a program</option>
-                <option value="CMA (USA)">CMA (USA)</option>
-                <option value="CFA">CFA</option>
-                <option value="CIA (USA)">CIA (USA)</option>
-                <option value="University Finance">University Finance Program</option>
-              </select>
-            </div>
-          </div>
-          <div class="contact-field">
-            <label for="contactMessage">Your message</label>
-            <textarea id="contactMessage" name="message" rows="4" placeholder="How can our academic team help?" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send inquiry</button>
-          <p class="contact-form-status" id="contactFormStatus" role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="logo.webp?v=2" alt="" class="brand-logo brand-logo-footer">
-        <div><strong>ZHS Academy of Finance</strong><span>CMA · CFA · CIA · University Finance</span></div>
-      </div>
-      <div class="footer-links">
-        <a href="courses.html">Courses</a><a href="timetable.html">Timetable</a><a href="about.html">About</a><a href="contact.html">Contact</a>
-      </div>
-      <p class="footer-copy">© 2026 · Learn. Lead. Succeed.</p>
     </div>
-  </footer>
-  <script src="script.js"></script>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="no-print sticky top-0 z-40 border-b backdrop-blur-md" style="background:var(--c-glass); border-color:var(--c-glass-line)">
+    <div class="scroll-progress" aria-hidden="true"><span data-progress-bar></span></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-[4.5rem] gap-4">
+            <a href="#top" class="flex items-center gap-3 group">
+                <span class="w-11 h-11 rounded-xl flex items-center justify-center font-display font-extrabold text-xl text-white shrink-0 shadow-card" style="background:linear-gradient(140deg,#1e3e62,#0b192c 55%,#065f46); border:1px solid rgba(110,231,183,.3)" aria-hidden="true"><span class="text-amber-400">Z</span>H</span>
+                <span>
+                    <span class="block font-display font-extrabold text-lg sm:text-xl leading-none tracking-tight">ZHS <span style="color:var(--c-accent)">ACADEMY</span></span>
+                    <span class="block text-[9.5px] sm:text-[10px] tracking-[.18em] uppercase font-semibold muted mt-1">Finance &middot; Tax &middot; Audit &middot; Analytics</span>
+                </span>
+            </a>
+
+            <nav class="hidden xl:flex items-center gap-6 text-[.82rem] font-medium" aria-label="Primary">
+                <a href="#pathway" class="muted hover:text-ink transition-colors">Pathway Builder</a>
+                <a href="#courses" class="muted hover:text-ink transition-colors">Programmes</a>
+                <a href="#fees" class="muted hover:text-ink transition-colors">Fee Planner</a>
+                <a href="#verify" class="muted hover:text-ink transition-colors">Verify</a>
+                <a href="#tutors" class="muted hover:text-ink transition-colors">Tutors</a>
+                <a href="#alumni" class="muted hover:text-ink transition-colors">Alumni</a>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <button type="button" id="themeToggle" class="btn btn-outline btn-sm !px-2.5" aria-pressed="false" aria-label="Switch to dark theme">
+                    <i data-lucide="sun" class="w-4 h-4" aria-hidden="true"></i>
+                </button>
+                <button type="button" onclick="focusVerify()" class="hidden lg:inline-flex btn btn-outline btn-sm">
+                    <i data-lucide="shield-check" class="w-4 h-4" style="color:var(--c-accent)" aria-hidden="true"></i> Verify credential
+                </button>
+                <button type="button" onclick="scrollToEnroll()" class="btn btn-accent btn-sm hidden sm:inline-flex">
+                    <i data-lucide="sparkles" class="w-4 h-4" aria-hidden="true"></i> Enrol
+                </button>
+                <button type="button" id="mobileMenuBtn" class="btn btn-ghost btn-sm xl:hidden !px-2" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation menu">
+                    <i data-lucide="menu" class="w-5 h-5" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobileMenu" hidden class="xl:hidden border-t px-4 py-4 space-y-1 max-h-[70vh] overflow-y-auto" style="border-color:var(--c-line); background:var(--c-surface)">
+        <a href="#pathway" class="block py-2.5 text-sm font-medium rounded-lg px-2 muted" data-close-menu>Learning Pathway Builder</a>
+        <a href="#courses" class="block py-2.5 text-sm font-medium rounded-lg px-2 muted" data-close-menu>All Programmes</a>
+        <a href="#fees" class="block py-2.5 text-sm font-medium rounded-lg px-2 muted" data-close-menu>Fee Planner (USD)</a>
+        <a href="#verify" class="block py-2.5 text-sm font-medium rounded-lg px-2 muted" data-close-menu>Verify a Certificate</a>
+        <a href="#tutors" class="block py-2.5 text-sm font-medium rounded-lg px-2 muted" data-close-menu>Your Tutors</a>
+        <a href="#alumni" class="block py-2.5 text-sm font-medium rounded-lg px-2 muted" data-close-menu>Alumni &amp; Outcomes</a>
+        <a href="#faq" class="block py-2.5 text-sm font-medium rounded-lg px-2 muted" data-close-menu>FAQ</a>
+        <div class="pt-3 grid grid-cols-2 gap-2">
+            <button type="button" onclick="focusVerify(); closeMobileMenu();" class="btn btn-outline btn-sm btn-block">Verify</button>
+            <button type="button" onclick="scrollToEnroll(); closeMobileMenu();" class="btn btn-accent btn-sm btn-block">Enrol</button>
+        </div>
+    </div>
+</header>
+
+<main id="main">
+<span id="top" class="sr-only">Top of page</span>
+
+<!-- ============ HERO ============ -->
+<section class="hero-bg hero-lines relative text-white overflow-hidden">
+    <div aria-hidden="true" class="hero-glow absolute -left-24 top-1/4 w-[26rem] h-[26rem] rounded-full blur-3xl pointer-events-none" style="background:rgba(30,62,98,.55)"></div>
+    <div aria-hidden="true" class="hero-glow absolute -right-24 bottom-0 w-[26rem] h-[26rem] rounded-full blur-3xl pointer-events-none" style="background:rgba(5,150,105,.22)"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-14 pb-20 sm:pt-20 sm:pb-24">
+        <div class="max-w-3xl mx-auto text-center">
+            <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-medium mb-6" style="background:rgba(15,23,42,.75); border:1px solid rgba(110,231,183,.28); color:#a7f3d0">
+                <i data-lucide="user-round-check" class="w-4 h-4 text-amber-400" aria-hidden="true"></i>
+                Tutor-led &middot; ACCA, CFA&reg;, US CPA, CIMA, CIA, ADIT
+            </span>
+            <h1 class="hd-hero t-display">Taught by expert tutors, <span class="gold-text">not just recorded</span></h1>
+            <p class="mt-6 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto" data-hero="lead">
+                Study for globally recognised credentials with a named tutor who holds the credential they teach &mdash;
+                Big Four audit, corporate tax and tier-one asset management backgrounds. Live online cohorts, weekly
+                graded questions marked by your tutor, 1:1 clinics, and every fee published in
+                <strong class="text-white">USD</strong>.
+            </p>
+
+            <form class="mt-8 max-w-xl mx-auto" onsubmit="event.preventDefault(); triggerSearch();">
+                <div class="flex flex-col sm:flex-row items-stretch gap-2 rounded-2xl p-2 shadow-lift" style="background:rgba(9,15,27,.9); border:1px solid rgba(148,163,184,.22)">
+                    <div class="flex items-center flex-1 px-3 gap-2">
+                        <i data-lucide="search" class="w-5 h-5 shrink-0 text-emerald-400" aria-hidden="true"></i>
+                        <label for="heroSearchInput" class="sr-only">Search programmes</label>
+                        <input id="heroSearchInput" type="search" placeholder="Search ACCA, CFA, CPA, VAT, transfer pricing&hellip;" class="w-full bg-transparent text-white placeholder-slate-400 text-sm py-2.5 focus:outline-none">
+                    </div>
+                    <button type="submit" class="btn btn-accent px-6">Explore</button>
+                </div>
+            </form>
+
+            <div class="mt-5 flex flex-wrap items-center justify-center gap-2 text-xs">
+                <span class="text-slate-400">Popular:</span>
+                <button type="button" onclick="setCatalogFilter('chartered','ACCA')" class="chip chip-btn !bg-slate-800 !border-slate-600 !text-slate-300">ACCA</button>
+                <button type="button" onclick="setCatalogFilter('chartered','CFA')" class="chip chip-btn !bg-slate-800 !border-slate-600 !text-slate-300">CFA&reg; Level I</button>
+                <button type="button" onclick="setCatalogFilter('chartered','CPA')" class="chip chip-btn !bg-slate-800 !border-slate-600 !text-slate-300">US CPA</button>
+                <button type="button" onclick="setCatalogFilter('tax','transfer pricing')" class="chip chip-btn !bg-slate-800 !border-slate-600 !text-slate-300">Transfer pricing</button>
+                    <button type="button" onclick="setCatalogFilter('applied','FRM')" class="chip chip-btn !bg-slate-800 !border-slate-600 !text-slate-300">Risk management</button>
+            </div>
+        </div>
+
+        <dl class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            <div class="rounded-2xl p-5 text-center" style="background:rgba(15,23,42,.6); border:1px solid rgba(148,163,184,.2)">
+                <dt class="sr-only">Learners trained</dt>
+                <dd class="num text-3xl sm:text-4xl text-emerald-400">42,000+</dd>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1.5">Learners across 96 countries</p>
+            </div>
+            <div class="rounded-2xl p-5 text-center" style="background:rgba(15,23,42,.6); border:1px solid rgba(148,163,184,.2)">
+                <dt class="sr-only">First-attempt pass rate</dt>
+                <dd class="num text-3xl sm:text-4xl text-amber-400">88.6%</dd>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1.5">First-attempt pass rate</p>
+            </div>
+            <div class="rounded-2xl p-5 text-center" style="background:rgba(15,23,42,.6); border:1px solid rgba(148,163,184,.2)">
+                <dt class="sr-only">Accredited programmes</dt>
+                <dd class="num text-3xl sm:text-4xl text-sky-400">20</dd>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1.5">Accredited programmes</p>
+            </div>
+            <div class="rounded-2xl p-5 text-center" style="background:rgba(15,23,42,.6); border:1px solid rgba(148,163,184,.2)">
+                <dt class="sr-only">Tutor support</dt>
+                <dd class="num text-3xl sm:text-4xl text-violet-400">1:1</dd>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1.5">Tutor clinics on every cohort</p>
+            </div>
+        </dl>
+        <p class="mt-5 text-[11px] text-slate-500 max-w-5xl mx-auto text-center">Learner and pass-rate figures are ZHS Academy cohort data, self-reported and reviewed annually across rolling 24-month windows. Every programme is assigned a named tutor before the first session.</p>
+    </div>
+</section>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="no-print border-b" style="background:var(--c-surface); border-color:var(--c-line)" aria-label="Employers employing our alumni">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
+        <p class="text-center text-[11px] font-semibold uppercase tracking-[.15em] muted mb-4">Our alumni hold roles within teams at</p>
+        <ul class="flex flex-wrap justify-center gap-x-7 gap-y-3 text-sm font-semibold muted">
+            <li>Big Four audit</li><li>Tier-one banks</li><li>Multinational FP&amp;A</li>
+            <li>Advisory firms</li><li>Regulators</li><li>FinTech scale-ups</li>
+            <li>Remote-first studios</li><li>Non-profit finance</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============ PATHWAY BUILDER ============ -->
+<section id="pathway" class="no-print py-16 sm:py-20 border-y" style="background:var(--c-surface); border-color:var(--c-line)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-9">
+            <p class="kicker">Plan your route</p>
+            <h2 class="hd-1 t-display mt-2">Learning Pathway Builder</h2>
+            <p class="lead mt-3">Tell us where you are heading. We assemble a sequenced route through our programmes, scale it to the hours you can realistically commit, and flag it when it exceeds your budget. Each stage comes with its own named tutor. Your route and progress are saved in this browser.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <form id="pathwayForm" class="lg:col-span-5 card p-5 sm:p-6 rounded-2xl" novalidate>
+                <fieldset>
+                    <legend class="label !text-[.8rem] !text-ink font-bold mb-3">1. What are you aiming for?</legend>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="goalOptions"></div>
+                </fieldset>
+
+                <fieldset class="mt-6">
+                    <legend class="label !text-[.8rem] !text-ink font-bold mb-3">2. Where are you starting from?</legend>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="levelOptions"></div>
+                </fieldset>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    <div>
+                        <label class="label" for="hoursSelect">3. Study time per week</label>
+                        <select id="hoursSelect" class="field">
+                            <option value="5">~5 hours (casual)</option>
+                            <option value="10" selected>~10 hours (steady)</option>
+                            <option value="20">~20 hours (intensive)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="label" for="budgetSelect">4. Total budget (USD)</label>
+                        <select id="budgetSelect" class="field">
+                            <option value="1500">Up to $1,500</option>
+                            <option value="3000">Up to $3,000</option>
+                            <option value="5000" selected>Up to $5,000</option>
+                            <option value="9000">Up to $9,000</option>
+                            <option value="15000">Up to $15,000</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-6">
+                    <button type="submit" class="btn btn-accent btn-block"><i data-lucide="route" class="w-4 h-4" aria-hidden="true"></i> Build my pathway</button>
+                    <button type="button" onclick="resetPathway()" class="btn btn-outline btn-block"><i data-lucide="trash-2" class="w-4 h-4" aria-hidden="true"></i> Clear &amp; reset</button>
+                </div>
+            </form>
+
+            <div class="lg:col-span-7">
+
+                <div id="pathwayResult" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CATALOGUE ============ -->
+<section id="courses" class="no-print py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-8">
+            <p class="kicker">Programme catalogue</p>
+            <h2 class="hd-1 t-display mt-2">Explore every programme</h2>
+            <p class="lead mt-3">Seventeen globally aligned programmes across chartered credentials, tax and compliance, applied finance, and academic preparation. Every one is tutor-led, and all prices in USD.</p>
+        </div>
+
+        <div role="group" aria-label="Filter programmes by category" class="flex flex-wrap items-center gap-2 mb-5">
+            <button type="button" class="chip chip-btn !px-4 !py-2 !text-[.8rem]" data-cat="all" aria-pressed="true">All programmes (<span id="totalCourseCount">0</span>)</button>
+            <button type="button" class="chip chip-btn !px-4 !py-2 !text-[.8rem]" data-cat="chartered" aria-pressed="false">Global Chartered</button>
+            <button type="button" class="chip chip-btn !px-4 !py-2 !text-[.8rem]" data-cat="tax" aria-pressed="false">Tax &amp; Compliance</button>
+            <button type="button" class="chip chip-btn !px-4 !py-2 !text-[.8rem]" data-cat="applied" aria-pressed="false">Applied Finance &amp; FinTech</button>
+            <button type="button" class="chip chip-btn !px-4 !py-2 !text-[.8rem]" data-cat="academic" aria-pressed="false">Academic &amp; Exam Prep</button>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+            <div class="relative flex-1 max-w-md">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 muted pointer-events-none" aria-hidden="true"></i>
+                <label for="courseFilterSearch" class="sr-only">Filter programmes by keyword</label>
+                <input type="search" id="courseFilterSearch" oninput="renderCourses()" placeholder="Filter by keyword, awarding body or topic&hellip;" class="field !pl-10">
+            </div>
+            <p id="resultCount" class="text-xs muted" role="status" aria-live="polite"></p>
+        </div>
+
+        <div id="coursesGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+
+        <div id="noCoursesState" hidden class="card p-10 rounded-2xl text-center">
+            <i data-lucide="search" class="w-10 h-10 muted mx-auto mb-3" aria-hidden="true"></i>
+            <h3 class="hd-3 font-display font-bold">No programmes match that search</h3>
+            <p class="text-sm muted mt-1.5">Try a broader term such as ACCA, tax, audit, SAP, or clear the filters.</p>
+            <button type="button" onclick="resetCatalogFilters()" class="btn btn-accent btn-sm mt-5">Show all programmes</button>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FEE PLANNER ============ -->
+<section id="fees" class="no-print py-16 sm:py-20 border-y" style="background:var(--c-surface); border-color:var(--c-line)">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-5">
+                <p class="kicker">Transparent pricing</p>
+                <h2 class="hd-1 t-display mt-2">Fee Planner</h2>
+                <p class="lead mt-3">All programme fees are published and collected in US dollars. Choose a zero-interest payment plan, add optional tutor support and resources, and see the true total before you enrol.</p>
+                <ul class="mt-6 space-y-2.5 text-sm">
+                    <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 mt-0.5 shrink-0" style="color:var(--c-accent)" aria-hidden="true"></i> A named practitioner tutor assigned before week one</li>
+                    <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 mt-0.5 shrink-0" style="color:var(--c-accent)" aria-hidden="true"></i> Weekly questions graded and commented by your tutor</li>
+                    <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 mt-0.5 shrink-0" style="color:var(--c-accent)" aria-hidden="true"></i> 0% interest on every instalment plan</li>
+                    <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 mt-0.5 shrink-0" style="color:var(--c-accent)" aria-hidden="true"></i> No registration or materials surcharge</li>
+                    <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 mt-0.5 shrink-0" style="color:var(--c-accent)" aria-hidden="true"></i> Instalments are non-refundable once the cohort opens</li>
+                    <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 mt-0.5 shrink-0" style="color:var(--c-accent)" aria-hidden="true"></i> Regional billing available in your portal currency</li>
+                </ul>
+                <p class="hint mt-5 flex items-start gap-2"><i data-lucide="info" class="w-3.5 h-3.5 mt-px shrink-0" aria-hidden="true"></i><span>Examination, membership and subscription fees charged directly by awarding bodies (ACCA, AICPA, IMA, CIMA, CIOT) are separate and not included in programme tuition.</span></p>
+            </div>
+
+            <div class="lg:col-span-7 card p-5 sm:p-7 rounded-2xl">
+                <div>
+                    <label class="label" for="feeCourseSelect">Programme</label>
+                    <select id="feeCourseSelect" onchange="onFeeCourseChange()" class="field"></select>
+                </div>
+
+                <div class="mt-5">
+                    <span class="label" id="planLabel">Payment plan</span>
+                    <div class="grid grid-cols-3 gap-2" role="group" aria-labelledby="planLabel">
+                        <button type="button" class="chip chip-btn !px-2 !py-2.5 !text-[.72rem]" data-plan="lump" aria-pressed="true">Lump sum<br><span class="font-normal opacity-80">&minus;15%</span></button>
+                        <button type="button" class="chip chip-btn !px-2 !py-2.5 !text-[.72rem]" data-plan="3" aria-pressed="false">3 months<br><span class="font-normal opacity-80">0% APR</span></button>
+                        <button type="button" class="chip chip-btn !px-2 !py-2.5 !text-[.72rem]" data-plan="6" aria-pressed="false">6 months<br><span class="font-normal opacity-80">0% APR</span></button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
+                    <div>
+                        <label class="label" for="cohortSelect">Next intake</label>
+                        <select id="cohortSelect" onchange="calculateFee()" class="field"></select>
+                    </div>
+                    <div>
+                        <span class="label">Cohort format</span>
+                        <p class="field !bg-surface3 flex items-center" id="cohortFormatDisplay">&mdash;</p>
+                    </div>
+                </div>
+
+                <fieldset class="mt-5">
+                    <legend class="label">Optional add-ons</legend>
+                    <div id="addonOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+                </fieldset>
+
+                <div class="mt-6 rounded-xl p-4" style="background:var(--c-surface-2); border:1px solid var(--c-line)">
+                    <dl class="space-y-2 text-[.8rem]">
+                        <div class="flex items-baseline justify-between gap-3"><dt class="muted">Published list price</dt><dd class="mono muted line-through" id="feeList">$0</dd></div>
+                        <div class="flex items-baseline justify-between gap-3"><dt class="muted">Programme tuition</dt><dd class="mono" id="feeBase">$0</dd></div>
+                        <div class="flex items-baseline justify-between gap-3" id="feeConcessionRow"><dt class="muted">Early-enrolment concession (&minus;15%)</dt><dd class="mono" style="color:var(--c-accent)" id="feeConcession">$0</dd></div>
+                        <div class="flex items-baseline justify-between gap-3" id="feeAddonsRow"><dt class="muted">Add-ons</dt><dd class="mono" id="feeAddons">$0</dd></div>
+                        <div class="flex items-baseline justify-between gap-3 pt-3 mt-1" style="border-top:1px solid var(--c-line)"><dt class="font-bold">Total payable</dt><dd class="num text-2xl" style="color:var(--c-accent)" id="feeTotal">$0</dd></div>
+                    </dl>
+                    <p class="hint mt-2" id="feeScheduleNote">&mdash;</p>
+                    <p class="hint !text-[.68rem] mt-1" style="color:var(--c-accent)" id="feeSavingNote"></p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-5">
+                    <button type="button" onclick="enrollFromPlanner()" class="btn btn-accent"><i data-lucide="arrow-right" class="w-4 h-4" aria-hidden="true"></i> Enrol with this plan</button>
+                    <button type="button" onclick="printPage()" class="btn btn-outline"><i data-lucide="printer" class="w-4 h-4" aria-hidden="true"></i> Save quote</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ VERIFICATION ============ -->
+<section id="verify" class="no-print py-16 sm:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="card p-6 sm:p-10 rounded-2xl">
+            <div class="text-center max-w-xl mx-auto mb-8">
+                <span class="icon-box mx-auto mb-3"><i data-lucide="shield-check" class="w-6 h-6" aria-hidden="true"></i></span>
+                <p class="kicker">Trust &amp; transparency</p>
+                <h2 class="hd-1 t-display mt-2">Verify a ZHS credential</h2>
+                <p class="lead mt-3 text-sm">Employers, universities and regulators can confirm the authenticity of any ZHS Academy certificate, transcript or CPD record in seconds using the credential ID printed on the document.</p>
+            </div>
+
+            <form onsubmit="event.preventDefault(); verifyCredential();" class="max-w-lg mx-auto">
+                <label class="label" for="certInput">Credential ID</label>
+                <div class="flex flex-col sm:flex-row gap-2.5">
+                    <div class="relative flex-1">
+                        <i data-lucide="hash" class="w-4 h-4 muted absolute left-3.5 top-3.5 pointer-events-none" aria-hidden="true"></i>
+                        <input type="text" id="certInput" class="field !pl-10 mono uppercase tracking-wider" placeholder="ZHS-GLB-2026-0412" autocomplete="off" spellcheck="false" aria-describedby="certHelp">
+                    </div>
+                    <button type="submit" class="btn btn-navy"><i data-lucide="search" class="w-4 h-4" aria-hidden="true"></i> Verify</button>
+                </div>
+                <p class="hint" id="certHelp">IDs are case-insensitive. Try one of the demo records below.</p>
+            </form>
+
+            <div class="text-center mt-3 text-xs muted">
+                Demo records:
+                <button type="button" onclick="fillDemo('ZHS-GLB-2026-0412')" class="mono font-semibold underline underline-offset-2 hover:text-ink">ZHS-GLB-2026-0412</button>,
+                <button type="button" onclick="fillDemo('ZHS-GLB-2025-8874')" class="mono font-semibold underline underline-offset-2 hover:text-ink">ZHS-GLB-2025-8874</button>,
+                <button type="button" onclick="fillDemo('ZHS-GLB-2025-3301')" class="mono font-semibold underline underline-offset-2 hover:text-ink">ZHS-GLB-2025-3301</button>
+            </div>
+
+            <div id="certResult" class="mt-8"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ TUTORS ============ -->
+<section id="tutors" class="no-print py-16 sm:py-20 border-y" style="background:var(--c-surface); border-color:var(--c-line)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-10">
+            <p class="kicker">Who tutors you</p>
+            <h2 class="hd-1 t-display mt-2">Expert tutors, not only lectures</h2>
+            <p class="lead mt-3">ZHS Academy is a tutoring provider: every programme is taught and supported by a named tutor who holds the credential they teach &mdash; audit partners, corporate tax directors, portfolio managers and former regulators, with combined teaching experience of over 140 years. You get live sessions, weekly questions marked by your tutor, and 1:1 clinics whenever you get stuck.</p>
+        </div>
+        <div id="facultyGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+    </div>
+</section>
+
+<!-- ============ ALUMNI ============ -->
+<section id="alumni" class="no-print py-16 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mb-10">
+            <p class="kicker">Alumni outcomes</p>
+            <h2 class="hd-1 t-display mt-2">Where our learners end up</h2>
+            <p class="lead mt-3">ZHS Academy alumni work across audit, tax, FP&amp;A, risk and independent practice in EMEA, the Americas, APAC and the Middle East. Below is a sample of recent outcomes.</p>
+        </div>
+
+        <dl class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            <div class="card p-5 rounded-2xl"><dt class="text-xs muted">Median time to first role</dt><dd class="num text-3xl mt-1">7.4 <span class="text-base font-semibold muted">months</span></dd></div>
+            <div class="card p-5 rounded-2xl"><dt class="text-xs muted">Learners in remote roles</dt><dd class="num text-3xl mt-1">61<span class="text-base font-semibold muted">%</span></dd></div>
+            <div class="card p-5 rounded-2xl"><dt class="text-xs muted">Median salary uplift</dt><dd class="num text-3xl mt-1">+38<span class="text-base font-semibold muted">%</span></dd></div>
+            <div class="card p-5 rounded-2xl"><dt class="text-xs muted">Progression support</dt><dd class="num text-3xl mt-1">12 <span class="text-base font-semibold muted">months</span></dd></div>
+        </dl>
+
+        <div id="alumniGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="no-print py-16 sm:py-20 border-t" style="background:var(--c-surface); border-color:var(--c-line)">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8">
+            <p class="kicker">Before you enrol</p>
+            <h2 class="hd-1 t-display mt-2">Frequently asked questions</h2>
+        </div>
+        <div class="space-y-3">
+            <details class="card p-5 rounded-2xl group">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-[.92rem] list-none">Are ZHS Academy qualifications themselves professional licences?<i data-lucide="chevron-down" class="w-4 h-4 shrink-0 muted transition-transform group-open:rotate-180" aria-hidden="true"></i></summary>
+                <p class="text-sm muted mt-3 leading-relaxed">No. We deliver tutor-led tuition aligned to the syllabi of the awarding bodies named on each programme. The certificate, membership and licence are awarded by those bodies once you pass their exams and meet their experience requirements. ZHS Academy is a training and tutoring provider, not an examining body.</p>
+            </details>
+            <details class="card p-5 rounded-2xl group">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-[.92rem] list-none">How do live sessions work across time zones?<i data-lucide="chevron-down" class="w-4 h-4 shrink-0 muted transition-transform group-open:rotate-180" aria-hidden="true"></i></summary>
+                <p class="text-sm muted mt-3 leading-relaxed">Sessions run on a published UTC timetable, usually two evenings a week, and are led live by your assigned tutor. Every session is recorded within two hours. Cohorts with a strong regional concentration can request an alternative slot at enrolment. All learners also get 24/7 access to the lesson vault and can book 1:1 tutor clinics, so attendance is recommended but never required.</p>
+            </details>
+            <details class="card p-5 rounded-2xl group">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-[.92rem] list-none">Do I get a tutor, or just recordings?<i data-lucide="chevron-down" class="w-4 h-4 shrink-0 muted transition-transform group-open:rotate-180" aria-hidden="true"></i></summary>
+                <p class="text-sm muted mt-3 leading-relaxed">A tutor. Before the first session you are assigned a named practitioner tutor who holds the credential they teach, and that tutor runs your live classes, marks your weekly questions with written comments, and holds 1:1 clinics on request. Recordings are a revision aid, never the substitute for being taught. The Tutors section above lists who leads each track.</p>
+            </details>
+            <details class="card p-5 rounded-2xl group">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-[.92rem] list-none">What does the tuition fee include?<i data-lucide="chevron-down" class="w-4 h-4 shrink-0 muted transition-transform group-open:rotate-180" aria-hidden="true"></i></summary>
+                <p class="text-sm muted mt-3 leading-relaxed">Live tutor-led sessions, lifetime access to recordings, digital notes, weekly graded questions marked by your tutor, 1:1 tutor clinics, tutor discussion groups, mock feedback, and a digital certificate on completion. Examination entry fees, professional membership subscriptions and travel to exam centres are billed by the awarding body and are not part of tuition.</p>
+            </details>
+            <details class="card p-5 rounded-2xl group">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-[.92rem] list-none">Can I pay in my local currency?<i data-lucide="chevron-down" class="w-4 h-4 shrink-0 muted transition-transform group-open:rotate-180" aria-hidden="true"></i></summary>
+                <p class="text-sm muted mt-3 leading-relaxed">Tuition is quoted in USD on this page. Once you enrol, your learner portal offers billing in a range of regional currencies at the rate applied on the day of payment, and instalment plans can be split across those currencies.</p>
+            </details>
+            <details class="card p-5 rounded-2xl group">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-[.92rem] list-none">Do I need a visa or campus attendance?<i data-lucide="chevron-down" class="w-4 h-4 shrink-0 muted transition-transform group-open:rotate-180" aria-hidden="true"></i></summary>
+                <p class="text-sm muted mt-3 leading-relaxed">No. Every professional programme is delivered fully online. Some exam bodies require you to attend an authorised exam centre; we help you book the nearest one, and most centres now offer remote-proctored sittings for part of the year.</p>
+            </details>
+            <details class="card p-5 rounded-2xl group">
+                <summary class="flex items-center justify-between gap-4 cursor-pointer font-semibold text-[.92rem] list-none">How do employers verify my certificate?<i data-lucide="chevron-down" class="w-4 h-4 shrink-0 muted transition-transform group-open:rotate-180" aria-hidden="true"></i></summary>
+                <p class="text-sm muted mt-3 leading-relaxed">Every credential carries a unique ID. An employer enters it in the verification tool above to retrieve the holder, programme, completion date, grade and supervising tutor, then prints or saves the verification slip. There is no charge and no registration.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ENROLMENT ============ -->
+<section id="enroll" class="no-print py-16 sm:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="card p-6 sm:p-10 rounded-2xl">
+            <div class="text-center max-w-xl mx-auto mb-8">
+                <p class="kicker">Fast-track registration</p>
+                <h2 class="hd-1 t-display mt-2">Apply for admission</h2>
+                <p class="lead mt-3 text-sm">Request two live demo lectures, a free 1:1 tutor consultation and a mock-paper walkthrough. No payment is taken until you accept an offer.</p>
+            </div>
+
+            <div id="enrollSuccess" hidden class="mb-6 rounded-xl p-5" style="background:var(--c-accent-soft); border:1px solid var(--c-accent-line)" role="status" aria-live="polite">
+                <div class="flex items-start gap-3">
+                    <i data-lucide="check-circle" class="w-5 h-5 shrink-0 mt-px" style="color:var(--c-accent)" aria-hidden="true"></i>
+                    <div>
+                        <h3 class="font-display font-bold text-sm">Request received</h3>
+                        <p class="text-sm mt-1" style="color:var(--c-ink-2)" id="enrollSuccessText"></p>
+                        <p class="text-xs mt-2 muted">A reference number has been saved in this browser. In a live deployment this form posts to the admissions API.</p>
+                    </div>
+                </div>
+            </div>
+
+            <form id="enrollForm" novalidate>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="label" for="fullName">Full name <span aria-hidden="true" style="color:var(--c-warn)">*</span><span class="sr-only">(required)</span></label>
+                        <input type="text" id="fullName" name="fullName" class="field" required autocomplete="name" aria-describedby="fullNameErr">
+                        <p class="err" id="fullNameErr">Please enter your full name.</p>
+                    </div>
+                    <div>
+                        <label class="label" for="email">Email address <span aria-hidden="true" style="color:var(--c-warn)">*</span><span class="sr-only">(required)</span></label>
+                        <input type="email" id="email" name="email" class="field" required autocomplete="email" aria-describedby="emailErr">
+                        <p class="err" id="emailErr">Enter a valid email address.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="label" for="programme">Target programme <span aria-hidden="true" style="color:var(--c-warn)">*</span><span class="sr-only">(required)</span></label>
+                        <select id="programme" name="programme" class="field" required aria-describedby="programmeErr"></select>
+                        <p class="err" id="programmeErr">Please select a programme.</p>
+                    </div>
+                    <div>
+                        <label class="label" for="mode">Preferred mode</label>
+                        <select id="mode" name="mode" class="field">
+                            <option>Live online cohort with named tutor (UTC timetable)</option>
+                            <option>Live online, alternative regional tutor slot</option>
+                            <option>1:1 tutor clinics plus self-paced library</option>
+                            <option>Self-paced recorded library only</option>
+                            <option>Blended with local exam-centre support</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="label" for="location">City &amp; country / time zone</label>
+                        <input type="text" id="location" name="location" class="field" placeholder="e.g. Nairobi (EAT) or Lisbon (WET)" autocomplete="country-name">
+                        <p class="hint">Helps us schedule a session slot you can actually attend.</p>
+                    </div>
+                    <div>
+                        <label class="label" for="background">Current background</label>
+                        <select id="background" name="background" class="field">
+                            <option>Complete beginner</option>
+                            <option>Accounting or finance degree</option>
+                            <option>Bookkeeping or accounts experience</option>
+                            <option>Qualified accountant in practice</option>
+                            <option>Studying another professional exam</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                        <label class="label" for="goals">Anything specific you want your tutor to cover?</label>
+                        <textarea id="goals" name="goals" rows="3" class="field" placeholder="e.g. Focus on indirect tax and e-invoicing; I sit my exam in June."></textarea>
+                </div>
+
+                <div class="mt-4">
+                    <label class="opt !flex !items-start !gap-3">
+                        <input type="checkbox" id="consent" name="consent" required aria-describedby="consentErr">
+                        <span class="opt-body !p-3 !rounded-xl flex items-start gap-2.5">
+                            <i data-lucide="shield-check" class="w-4 h-4 mt-0.5 shrink-0" style="color:var(--c-accent)" aria-hidden="true"></i>
+                            <span class="text-xs leading-relaxed">I consent to ZHS Academy contacting me about this application. I have read the <a href="#faq" class="underline underline-offset-2 font-semibold">privacy notice</a> and understand my data is not sold to third parties.</span>
+                        </span>
+                    </label>
+                    <p class="err" id="consentErr">Please confirm consent so we can reply to your application.</p>
+                </div>
+
+                <button type="submit" class="btn btn-accent btn-block mt-6 !py-3 !text-[.9rem]"><i data-lucide="send" class="w-4 h-4" aria-hidden="true"></i> Submit request &amp; get free demo</button>
+            </form>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer-bg no-print text-slate-400 text-xs sm:text-[.8rem] pt-14 pb-8" style="background:#070d18; border-top:1px solid rgba(148,163,184,.18)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
+            <div>
+                <div class="flex items-center gap-2.5 mb-3">
+                    <span class="w-9 h-9 rounded-lg flex items-center justify-center text-white font-display font-bold text-lg" style="background:linear-gradient(140deg,#1e3e62,#065f46)" aria-hidden="true">Z</span>
+                    <span class="text-lg font-display font-extrabold text-white">ZHS ACADEMY</span>
+                </div>
+                <p class="text-xs leading-relaxed max-w-xs">A globally focused tutor-led provider of finance, tax, audit and analytics education &mdash; chartered programme tuition, tax compliance specialisms and applied finance tooling for learners in 96 countries. Every programme is taught by a named practitioner tutor.</p>
+                <p class="text-[11px] text-slate-500 mt-3">ZHS Academy is a training and tutoring provider. It does not award the professional licences or memberships described in its programmes.</p>
+            </div>
+
+            <nav aria-label="Chartered programme links">
+                <h2 class="text-white font-display font-semibold text-[.7rem] uppercase tracking-[.13em] mb-3">Chartered programmes</h2>
+                <ul class="space-y-2 text-xs">
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('chartered','ACCA')">ACCA UK</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('chartered','CFA')">CFA&reg; Program (Level I &amp; II)</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('chartered','CPA')">US CPA (AICPA)</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('chartered','CIMA')">CIMA / CGMA</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('chartered','CIA')">CIA</button></li>
+                </ul>
+            </nav>
+
+            <nav aria-label="Tax and applied programme links">
+                <h2 class="text-white font-display font-semibold text-[.7rem] uppercase tracking-[.13em] mb-3">Tax, compliance &amp; applied</h2>
+                <ul class="space-y-2 text-xs">
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('tax','transfer pricing')">Corporate tax &amp; transfer pricing</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('tax','VAT')">VAT / GST &amp; e-invoicing</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('tax','AML')">AML / CFT &amp; financial crime</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('applied','modelling')">Financial modelling &amp; valuation</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('applied','IFRS')">IFRS &amp; group consolidation</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('applied','FRM')">Financial risk management (FRM)</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('tax','ESG')">ESG &amp; sustainability reporting</button></li>
+                    <li><button type="button" class="hover:text-emerald-400 transition-colors text-left" onclick="setCatalogFilter('tax','forensic')">Forensic accounting &amp; fraud</button></li>
+                </ul>
+            </nav>
+
+            <div>
+                <h2 class="text-white font-display font-semibold text-[.7rem] uppercase tracking-[.13em] mb-3">Regional desks</h2>
+                <address class="not-italic text-xs text-slate-300 space-y-2.5">
+                    <p><strong class="text-white">EMEA</strong><br>support@zhsacademy.com<br>(+92) 333 8998745</p>
+                    <p><strong class="text-white">Americas</strong><br>support@zhsacademy.com<br>(+92) 333 8998745</p>
+                    <p><strong class="text-white">MEA &amp; APAC</strong><br>support@zhsacademy.com<br>(+92) 333 8998745</p>
+                </address>
+            </div>
+        </div>
+
+        <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500" style="border-top:1px solid rgba(148,163,184,.14)">
+            <p>&copy; <span id="footerYear">2026</span> ZHS Academy. All rights reserved. Programme fees shown in USD.</p>
+            <div class="flex flex-wrap gap-4">
+                <button type="button" onclick="focusVerify()" class="hover:text-slate-300">Credential verification</button>
+                <button type="button" onclick="printPage()" class="hover:text-slate-300">Print this page</button>
+                <a href="#faq" class="hover:text-slate-300">Privacy &amp; terms</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ============ COURSE DETAIL MODAL ============ -->
+<div id="courseModal" hidden class="fixed inset-0 z-50 p-3 sm:p-6 overflow-y-auto" style="background:rgba(2,6,23,.72); backdrop-filter:blur(4px)">
+    <div class="card mx-auto my-2 sm:my-6 rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modalTitle" id="modalDialog">
+        <div class="sticky top-0 z-10 px-5 sm:px-7 py-4 flex items-start justify-between gap-4 rounded-t-2xl" style="background:var(--c-surface); border-bottom:1px solid var(--c-line)">
+            <div class="min-w-0">
+                <span class="badge b-accent" id="modalCategory">Track</span>
+                <h2 class="hd-3 font-display font-bold mt-1.5 leading-snug" id="modalTitle">Programme details</h2>
+            </div>
+            <button type="button" onclick="closeCourseModal()" class="btn btn-ghost btn-sm !px-2 shrink-0" aria-label="Close programme details"><i data-lucide="x" class="w-5 h-5" aria-hidden="true"></i></button>
+        </div>
+
+        <div class="px-5 sm:px-7 py-5">
+            <dl class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                <div class="rounded-xl p-3 text-center" style="background:var(--c-surface-2); border:1px solid var(--c-line)"><dt class="text-[10px] uppercase tracking-wider muted">Duration</dt><dd class="text-xs font-bold mt-0.5" id="modalDuration">&mdash;</dd></div>
+                <div class="rounded-xl p-3 text-center" style="background:var(--c-surface-2); border:1px solid var(--c-line)"><dt class="text-[10px] uppercase tracking-wider muted">Study load</dt><dd class="text-xs font-bold mt-0.5" id="modalLoad">&mdash;</dd></div>
+                <div class="rounded-xl p-3 text-center" style="background:var(--c-surface-2); border:1px solid var(--c-line)"><dt class="text-[10px] uppercase tracking-wider muted">CPD credits</dt><dd class="text-xs font-bold mt-0.5" id="modalCpd">&mdash;</dd></div>
+                <div class="rounded-xl p-3 text-center" style="background:var(--c-surface-2); border:1px solid var(--c-line)"><dt class="text-[10px] uppercase tracking-wider muted">Tuition</dt><dd class="text-xs font-bold mt-0.5" style="color:var(--c-accent)" id="modalFee">&mdash;</dd></div>
+            </dl>
+
+            <div data-tablist="course" role="tablist" aria-label="Programme detail sections" class="tabs p-1 rounded-xl mb-4" style="background:var(--c-surface-3); border:1px solid var(--c-line)">
+                <button type="button" role="tab" class="tab" id="tab-ov" data-tab="p-ov" aria-controls="p-ov" aria-selected="true">Overview</button>
+                <button type="button" role="tab" class="tab" id="tab-cur" data-tab="p-cur" aria-controls="p-cur" aria-selected="false" tabindex="-1">Curriculum</button>
+                <button type="button" role="tab" class="tab" id="tab-out" data-tab="p-out" aria-controls="p-out" aria-selected="false" tabindex="-1">Outcomes</button>
+                <button type="button" role="tab" class="tab" id="tab-fac" data-tab="p-fac" aria-controls="p-fac" aria-selected="false" tabindex="-1">Your tutor</button>
+                <button type="button" role="tab" class="tab" id="tab-fee" data-tab="p-fee" aria-controls="p-fee" aria-selected="false" tabindex="-1">Fees</button>
+            </div>
+
+            <div id="p-ov" role="tabpanel" aria-labelledby="tab-ov" data-tabpanel-group="course" tabindex="0" class="text-sm leading-relaxed"></div>
+            <div id="p-cur" role="tabpanel" aria-labelledby="tab-cur" data-tabpanel-group="course" tabindex="0" class="text-sm" hidden></div>
+            <div id="p-out" role="tabpanel" aria-labelledby="tab-out" data-tabpanel-group="course" tabindex="0" class="text-sm" hidden></div>
+            <div id="p-fac" role="tabpanel" aria-labelledby="tab-fac" data-tabpanel-group="course" tabindex="0" class="text-sm" hidden></div>
+            <div id="p-fee" role="tabpanel" aria-labelledby="tab-fee" data-tabpanel-group="course" tabindex="0" class="text-sm" hidden></div>
+        </div>
+
+        <div class="sticky bottom-0 px-5 sm:px-7 py-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5 rounded-b-2xl" style="background:var(--c-surface); border-top:1px solid var(--c-line)">
+            <button type="button" onclick="enrollFromModal()" class="btn btn-accent"><i data-lucide="check" class="w-4 h-4" aria-hidden="true"></i> Enrol in this cohort</button>
+            <button type="button" id="modalPathwayBtn" onclick="togglePathwayFromModal()" class="btn btn-outline"></button>
+            <button type="button" onclick="closeCourseModal()" class="btn btn-ghost">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div id="toast" hidden class="no-print fixed bottom-5 right-5 z-[60] max-w-[calc(100vw-2.5rem)] sm:max-w-sm card !rounded-xl !p-4 flex items-start gap-3" role="status" aria-live="polite">
+    <span id="toastIcon" class="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style="background:var(--c-accent); color:var(--c-accent-fg)"><i data-lucide="check" class="w-4 h-4" aria-hidden="true"></i></span>
+    <div class="min-w-0">
+        <p class="text-xs font-bold" id="toastTitle">Done</p>
+        <p class="text-[11px] muted mt-0.5" id="toastMessage">&mdash;</p>
+    </div>
+    <button type="button" onclick="hideToast()" class="btn btn-ghost shrink-0 !rounded-lg !p-2 min-h-[2.25rem] min-w-[2.25rem]" aria-label="Dismiss notification"><i data-lucide="x" class="w-4 h-4" aria-hidden="true"></i></button>
+</div>
+
+<!-- ============ PRINT-ONLY CERTIFICATE SHEET ============ -->
+<div id="certPrintSheet"></div>
+
+<!-- ================= SCRIPTS =================
+     Classic (non-module) scripts on purpose: the markup uses inline
+     event-handler attributes, which require global function bindings.
+     A module build would scope them and silently break every button.
+
+     Load order = dependency order: data, then core helpers, then the
+     feature modules, then app.js (which calls init()).
+     ================================================ -->
+
+<!-- data -->
+<script src="assets/js/data/courses.js"></script>
+<script src="assets/js/data/faculty.js"></script>
+<script src="assets/js/data/alumni.js"></script>
+<script src="assets/js/data/pathway-config.js"></script>
+<script src="assets/js/data/certs.js"></script>
+
+<!-- core -->
+<script src="assets/js/core/utils.js"></script>
+<script src="assets/js/core/theme.js"></script>
+<script src="assets/js/core/tabs.js"></script>
+<script src="assets/js/core/toast.js"></script>
+<script src="assets/js/core/nav.js"></script>
+<script src="assets/js/core/scroll-anim.js"></script>
+
+<!-- features -->
+<script src="assets/js/features/catalog.js"></script>
+<script src="assets/js/features/modal.js"></script>
+<script src="assets/js/features/people.js"></script>
+<script src="assets/js/features/pathway-view.js"></script>
+<script src="assets/js/features/fees.js"></script>
+<script src="assets/js/features/verify.js"></script>
+<script src="assets/js/features/enroll-form.js"></script>
+
+<!-- entry point -->
+<script src="assets/js/app.js"></script>
 </body>
 </html>
